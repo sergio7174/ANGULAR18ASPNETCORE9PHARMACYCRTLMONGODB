@@ -55,7 +55,7 @@ $ npm start (to start the server), or nodemon server
 ![Static Badge](https://img.shields.io/badge/cors%20-yellow?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/dotenv-black?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/MongoDb%20-aqua?style=for-the-badge)
-![Static Badge](https://img.shields.io/badge/multer-purple?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/Asp.Net:core 9-purple?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/Express-navy?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/bootstrap-teal?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/rxjs%20-aqua?style=for-the-badge)
@@ -105,7 +105,8 @@ $ npm start (to start the server), or nodemon server
 - [cors](https://www.npmjs.com/package/cors) - Provides a Connect/Express middleware
 - [Dotenv](https://www.npmjs.com/package/dotenv) - Zero Dependency module that loads environment variables
 - [express-validator](https://www.npmjs.com/package/express-validator) - Used in Node.js applications with the Express framework to validate data submitted by users (user input)
-- [nodemon](https://nodemon.io/) - Development utility for Node.js applications. Node.js is a runtime platform that allows you to run JavaScript on the server side.t
+- [nodemon](https://nodemon.io/) - Development utility for Node.js applications. Node.js is a runtime platform that allows you to run JavaScript on the server side.
+- [Asp.Net:core 9] (https://dotnet.microsoft.com/es-es/learn/aspnet/what-is-aspnet-core) - es un marco de desarrollo web popular para compilar aplicaciones web en la Plataforma . NET. ASP.NET Core es la versión de código abierto de ASP.NET, que se ejecuta en macOS, Linux y Windows.
 
 
 ####  Database 
