@@ -1,0 +1,93 @@
+<body class="color-fondo" style="overflow: scroll;">
+    <br>
+
+    <div style="display: flex; justify-content: center;">
+       <h2 style="color:antiquewhite">Table Product List</h2>
+     </div>
+    <br/> 
+
+     <!-- Search bar --------------------------------------------------->
+
+<div class="wrapper">
+    <div class="search-group">
+      <input type="search" class="search-input" [(ngModel)]="searchTerm" placeholder="Search by Code or Category" />
+      <div class="search-icon-wrapper link">
+      <img src="assets/icons/search.png" alt="" class="search-icon" />
+    </div>
+  </div>
+</div>
+<br/>
+    <!-- end Search bar ------------------------------------------------>
+
+
+          <div style="max-height: 40em !important; max-width: 60em;display: flex; flex-wrap: nowrap; flex-direction: column; overflow:auto;">
+
+            <table class="table table-secondary table-bordered  table-hover text-center table-responsive-sm mt-5 "  >
+                <thead class="table-dark border-light">
+                    <tr>
+                        <th scope="col" style="max-width:1em !important;">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">product Code</th>
+                        <!--<th scope="col">Description</th>-->
+                        <th scope="col">Sell_price</th>
+                        <th scope="col">Cur_stock</th>
+                        <th scope="col">Exp Date</th>
+                        <th scope="col">Stor_Loc</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Add to Bill</th>   
+                    </tr>
+                </thead>
+                <tbody class="border-dark table-secondary">
+                  @for (product of filteredProducts | paginate: { itemsPerPage: 5, currentPage: page }; let row = $index ;track product.current_stock; ){
+
+                    <tr>   
+                            
+  
+<td >{{row+1}}</td>
+<td>{{product?.name? product?.name :'not set' }}</td>
+<td>{{product?.product_code? product?.product_code :'not set'}}</td>
+<!--<td style="max-width: 10em !important; overflow-wrap: break-word;">{{product?.description? product?.description :'not set'}}</td>-->
+
+<td style="max-width: 4em !important; overflow-wrap: break-word;">{{product?.selling_price? product?.selling_price :'not set'}}</td>
+<td style="max-width: 3em !important; overflow-wrap: break-word;">{{product?.current_stock? product?.current_stock :'not set'}}</td>
+
+<td style="max-width: 6em !important; overflow-wrap: break-word;">{{product?.expiration_date? product?.expiration_date :'not set' | date:"short" }}</td>
+
+<td>{{product?.storage_location? product?.storage_location :'not set'}}</td>
+<!--<td>{{product?.nutritional_information? product?.nutritional_information :'not set'}}</td>-->
+<!--<td>{{product?.notes? product?.notes :'not set'}}</td>-->
+<td style="width: 6em !important;">{{product?.category? product?.category :'not set'}}</td>
+
+    <td>
+            <!--<button class="btn btn-primary" style="margin-right: 0.4em ; margin-bottom: 0.2em;">
+         <span (click)="editDetails(product.id)"><ng-icon name="bootstrapPersonLinesFill" ></ng-icon></span>
+            </button> -->
+
+            <button class="btn btn-danger" [disabled]="!product?.current_stock">
+              <span  (click)="onAdd(product)"  id="buttonanAdd">
+                 <ng-icon name="bootstrapListColumns" ></ng-icon>
+              </span>
+            </button>        
+                    </td>
+                    </tr>} 
+                </tbody>
+            </table>
+           
+  <br>
+  <br>
+  <br>
+   <br>
+   <br>
+   <br>
+</div> 
+<div style="background-color: #2196f3;">
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</div>
+<div class="form-group" style="margin-top: 1em; ">
+    <div class="col-md-6">
+      <input type="submit" value="Back" class="btn btn-primary"
+          (click)="back()">
+      </div>
+</div>
+
+  </body>

@@ -1,0 +1,29 @@
+  <div class="topmenu">
+    <app-topbar></app-topbar>
+  </div>
+@if (isAuthenticated && IsAdmin=='false') {
+  <div class="topmenu">
+    <app-usertopmenu></app-usertopmenu>
+  </div>} 
+
+@if (isAuthenticated && IsAdmin=='true') {
+  <div class="topmenu">
+    <app-admintopmenu></app-admintopmenu>
+  </div>}
+
+
+<!----- END OF MENU SECTION -->
+
+
+<!-------------------------------- End Block main menu ------------------------------------->
+<main class="main" style="background-color: rgb(162, 165, 164); margin-top: -1em;">
+  
+ <router-outlet></router-outlet>
+ 
+ 
+</main>
+<p-toast></p-toast>
+
+<div style="margin-top: -3em;">
+<app-footer></app-footer>
+</div>

@@ -1,0 +1,103 @@
+<body class="color-fondo">
+    <br>
+
+    <div style="display: flex; justify-content: center;">
+       <h2 style="color:antiquewhite">Table Product List</h2>
+     </div>
+    <br/> 
+
+     <!-- Search bar --------------------------------------------------->
+
+<div class="wrapper">
+    <div class="search-group">
+      <input type="search" class="search-input" [(ngModel)]="searchTerm" placeholder="Search by Code or Category" />
+      <div class="search-icon-wrapper link">
+      <img src="assets/icons/search.png" alt="" class="search-icon" />
+    </div>
+  </div>
+</div>
+<br/>
+    <!-- end Search bar ------------------------------------------------>
+
+
+          <div style="max-height: 40em !important; display: flex; flex-wrap: nowrap; flex-direction: column; overflow:auto;">
+
+            <table class="table table-secondary table-bordered  table-hover text-center table-responsive-sm mt-5 "  >
+                <thead class="table-dark border-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">product Code</th>
+                       <!-- <th scope="col">Description</th> -->
+                        <th scope="col">Pur_price</th>
+                        <th scope="col">Sell_price</th>
+                        <th scope="col">Cur_stock</th>
+                        <th scope="col">Supplier</th>
+                        <!--<th scope="col">Exp Date</th>-->
+                        <th scope="col">Lote</th>
+                        <th scope="col">Stor_Loc</th>
+                        <!--<th scope="col">nutritional_inf</th> -->
+                        <!--<th scope="col">Notes</th>-->
+                        <th scope="col">Category</th>
+                        <th scope="col">Create at</th>
+                        <th scope="col">Update at</th>
+                        <th scope="col">Edit/delete</th>
+                       
+                    </tr>
+                </thead>
+                <tbody class="border-dark table-secondary">
+                    <tr *ngFor="let element of filteredProducts | paginate: { itemsPerPage: 5, currentPage: page }; let row = index;" >           
+  
+<td >{{row+1}}</td>
+<td>{{element?.name? element?.name :'not set'}}</td>
+<td>{{element?.product_code? element?.product_code :'not set'}}</td>
+<!--<td>{{element?.description? element?.description :'not set'}}</td>-->
+<td>{{element?.purchase_price? element?.purchase_price :'not set'}}</td>
+<td>{{element?.selling_price? element?.selling_price :'not set'}}</td>
+<td>{{element?.current_stock? element?.current_stock :'not set'}}</td>
+<td>{{element?.supplier? element?.supplier :'not set'}}</td>
+<!--<td>{{element?.expiration_date? element?.expiration_date :'not set'}}</td>-->
+<td>{{element?.lot_number? element?.lot_number :'not set'}}</td>
+<td>{{element?.storage_location? element?.storage_location :'not set'}}</td>
+<!--<td>{{element?.nutritional_information? element?.nutritional_information :'not set'}}</td>-->
+<!--<td>{{element?.notes? element?.notes :'not set'}}</td>-->
+<td>{{element?.category? element?.category :'not set'}}</td>
+<td>{{element?.createAt? element?.createAt :'not set'}}</td>
+<td>{{element?.updateAt? element?.updateAt :'not set'}}</td>
+
+    <td>
+            <button class="btn btn-primary" style="margin-right: 0.4em ; margin-bottom: 0.2em;">
+         <span (click)="editDetails(element.id)"><ng-icon name="bootstrapPersonLinesFill" ></ng-icon></span>
+            </button>
+            <button class="btn btn-danger" ><span (click)="deleteDetails(element,row,$event)">
+            <ng-icon name="bootstrapTrash3" ></ng-icon>
+        </span>
+            </button>        
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+           
+  <br>
+  <br>
+  <br>
+  <!-- BLOCK FURNITURE------>
+  
+   <!--END BLOCK FURNITURE -->
+   <br>
+   <br>
+   <br>
+</div> 
+<div style="background-color: #2196f3;">
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</div>
+<div class="form-group" style="margin-top: 1em; ">
+    <div class="col-md-6">
+      <input type="submit" value="Back" class="btn btn-primary"
+          (click)="back()">
+      </div>
+</div>
+<br/>
+<br/>
+<br/>
+  </body>

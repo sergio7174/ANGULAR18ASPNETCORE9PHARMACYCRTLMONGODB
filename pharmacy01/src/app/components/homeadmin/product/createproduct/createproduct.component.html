@@ -1,0 +1,370 @@
+<div class="container mt-4" style="height: 65em;">
+    <div class="window rounded-3" style="height: 60em;">
+        <div class="row windowsSSheight">
+            <!-- Columna para la imagen -->
+            
+            <div class="col-md-3 d-flex justify-content-center align-items-center" style="margin: 0.3em;">
+                <img class="img-fluid rounded-3" src="assets/login/pharmacy01sb.png" alt="Pharmacy" >
+            </div>
+
+            <div class="col-md-8 rounded-3" style="margin-left: 2em;">
+               <div class="logo text-center">
+                <div class="row nav_logo_texts">
+                    <div class="col-12">
+                        <span class="nav_logo-name" style="position: relative; top: 15px; color: #2b69dd;">Pharmacy Control</span> 
+                        
+                    </div>
+                    <div class="col-12">
+
+                        <img src="assets/logo/pharmacylogo04sb.png" width="150em" alt="logo">
+                        <span class="nav_logo-name"  style="color: #2b69dd;">Sees</span>
+                        <span class="nav_logo-name"  style="color: #0b0a4b; font-size: 1rem; position: relative; top: -5px; left: 5px;">App</span>
+                    </div>
+
+                </div>
+               </div>
+                <div class="formproduct">
+                   <div style="display: flex; flex-direction: row; justify-content: center;">
+                    <div style="margin-right: 1em;">
+                        <ng-icon name="bootstrapFileMedical" size="42px"/> &nbsp; 
+                        
+                    </div>
+                    <div>
+                      <h2 class="text-center nav_logo-name" style="padding-top: -1em; color: #2b69dd;">Create Product </h2>
+                    </div>
+                </div>
+                    <br/>
+                    <form [formGroup]="newProductForm" (ngSubmit)="onproduct()" autocomplete="off">
+
+          <!-- First Group of data name, code, description  of product -->
+<div style="display: flex; flex-direction: row;   
+            justify-content:space-between; flex-wrap: wrap;">
+
+  <div class="mb-3" style="width: 19%; margin-right: 8.2em;">
+    <label for="name" class="form-label">
+     <ng-icon name="bootstrapFileMedical" size="20px"/> &nbsp; 
+                    Product Name:</label>
+                     <input type="name" name="name" class="form-control input" id="name"
+                      formControlName="name" autocomplete="off" placeholder="Product Name"
+                        style="width: 20em;">
+                        @if (
+                            newProductForm.get("name")?.invalid &&
+                            (newProductForm.get("name")?.dirty ||
+                            newProductForm.get("name")?.touched)
+                            ) {
+                        @if(newProductForm.get('name')?.hasError('required')&&newProductForm.get('name')?.touched){
+                                <div class="form-error">
+                                    <span class="text-danger">Product Name is required*</span>
+                                </div>
+                            }
+                            @if(newProductForm.get('name')?.hasError('minlength'))
+                            {
+                                <div class="form-error">
+                                    <span class="text-danger">Value must be greater than 4 Char*</span>
+                                </div>
+                                
+                              }}
+                        </div>
+
+<!------ Product Code Section ------------------------->
+<div class="mb-3" style="width: 7em; margin-left: 3em;">
+ <label for="product_code" class="form-label">
+  <ng-icon name="bootstrapFileMedical" size="20px"/> &nbsp; 
+   Code:
+ </label>
+    <input type="text" name="product_code" class="form-control input" id="product_code"
+      formControlName="product_code" autocomplete="off" placeholder="Product Code">
+    @if (
+         newProductForm.get("product_code")?.invalid &&
+         (newProductForm.get("product_code")?.dirty ||
+         newProductForm.get("product_code")?.touched)
+     ) {
+    @if(newProductForm.get('product_code')?.hasError('required')){
+      <div class="form-error">
+        <span class="text-danger">Product Code is required*</span>
+      </div>
+    } 
+    @if(newProductForm.get('product_code')?.hasError('minlength'))
+    {
+     <div class="form-error">
+      <span class="text-danger">Value must be greater than 4 Char*</span>
+    </div>      
+              }}
+</div> 
+        
+        <!------ End Of product_code Section ------------------>
+        <!------ Product description Section ------------------------->
+        <div class="mb-3" style="width: 18em;">
+            <label for="description" class="form-label">
+                <ng-icon name="bootstrapFileMedical" size="20px"/> &nbsp; 
+                Product Description:</label>
+            <input type="text" name="description" class="form-control input" id="description"
+            formControlName="description" autocomplete="off" placeholder="Description">
+            @if(newProductForm.get('description')?.hasError('required')&&newProductForm.get('description')?.touched){
+                <div class="form-error">
+                    <span class="text-danger">Description is required*</span>
+                </div>
+            }            
+              
+        </div>
+                        
+        <!------ End Of Product Description  ------------------>
+    </div>
+    <!-- End of the First Group of data name,code, descript -->            
+
+<!-- Second Group of data purchase_price - selling_price - Precio del producto -current_stock - supplier -->
+    
+ <div style="display: flex; flex-direction: row;   
+            justify-content:space-between; flex-wrap: wrap;">
+
+  <!-- purchase_price section ------------------------------>
+
+ <div class="mb-3" style="width: 9em;">
+   <label for="purchase_price" class="form-label">
+     <ng-icon name="bootstrapCurrencyDollar" size="20px"/> &nbsp; 
+        Purchase Price:</label>
+       <input appNumeric type="number" name="purchase_price"  min="1" class="form-control input" id="purchase_price"
+       formControlName="purchase_price" autocomplete="off" placeholder="Purchase Price">
+        @if(newProductForm.get('purchase_price')?.hasError('required')&&newProductForm.get('purchase_price')?.touched){
+          <div class="form-error">
+            <span class="text-danger">Purchase Price is required*</span>
+          </div>
+                }
+        </div>
+                            
+<!------ End Of Product purchase_price section -------------->
+ <!-- selling_price section ------------------------------>
+
+ <div class="mb-3" style="width: 8em;">
+  <label for="selling_price" class="form-label">
+   <ng-icon name="bootstrapCurrencyDollar" size="20px"/> &nbsp; 
+    Selling Price:</label>
+    <input appNumeric type="number" name="selling_price" class="form-control input"   id="selling_price"
+    formControlName="selling_price" autocomplete="off" placeholder=" Selling price">
+    @if(newProductForm.get('selling_price')?.hasError('required')&&newProductForm.get('selling_price')?.touched){
+        <div class="form-error">
+            <span class="text-danger">Selling Price is required*</span>
+        </div>
+    }
+</div>
+                
+<!------ End Of Product selling_price section -------------->
+<!-- current_stock section ------------------------------>
+
+<div class="mb-3" style="width: 9em;">
+    <label for="current_stock" class="form-label">
+        <ng-icon name="bootstrapCardList" size="20px"/> &nbsp; 
+        Current Stock:</label>
+    <input appNumeric type="number" name="current_stock" class="form-control input" id="current_stock"
+    formControlName="current_stock" autocomplete="off" placeholder=" Current stock">
+    @if(newProductForm.get('current_stock')?.hasError('required')&&newProductForm.get('current_stock')?.touched){
+        <div class="form-error">
+            <span class="text-danger">Current Stock is required*</span>
+        </div>
+    }
+</div>
+                
+<!------ End Of Product current_stock section -------------->     
+<!-- supplier section ------------------------------>
+
+<div class="mb-3" style="width: 18em;">
+    <label for="supplier" class="form-label">
+        <ng-icon name="bootstrapTruck" size="20px"/> &nbsp; 
+        Supplier:</label>
+
+    <select class="form-control form-select" formControlName="supplier" >
+        <option value="" >Choose a Supplier</option>
+        @for(supplier of itemsSuppliers; track supplier.id){
+          <option  [value]="supplier.name">{{ supplier.name }}</option>
+        }
+      </select>
+      @if(newProductForm.get('supplier')?.hasError('required') && newProductForm.get('supplier')?.touched){
+        <div class="form-error">
+          <span class="text-danger">Supplier is required*</span>
+        </div>
+      }
+</div>
+                
+<!------ End Of Product supplier section -------------->     
+    </div> 
+      <!-- Second Group of data purchase_price - selling_price - Precio del producto -current_stock - supplier - expiration_date - End of block -->
+
+ <!-- Third Group of data: expiration_date - lot_number - storage_location - Category, created_at ----------------------------------------------->
+
+ <div style="display: flex; flex-direction: row;   
+            justify-content:space-between; flex-wrap: wrap;">
+
+<!-- expiration_date section ------------------------------>
+
+<div class="mb-3" style="width: 10em;">
+    <label for="expiration_date" class="form-label">
+        <ng-icon name="bootstrapCalendarDateFill" size="20px"/> &nbsp; 
+        Expiration Date:</label>
+    <input type="date" name="expiration_date" class="form-control input" id="expiration_date"
+    formControlName="expiration_date" autocomplete="off" placeholder="Expiration date">
+    @if(newProductForm.get('expiration_date')?.hasError('required')&&newProductForm.get('expiration_date')?.touched){
+        <div class="form-error">
+            <span class="text-danger">Expiration date is required*</span>
+        </div>
+    }
+</div>
+                
+<!------ End Of Product Expiration date section --------------> 
+<!-- lot_number section ------------------------------>
+
+<div class="mb-3" style="width: 8em;">
+    <label for="lot_number" class="form-label">
+        <ng-icon name="bootstrapCardList" size="20px"/> &nbsp; 
+        Lote #:</label>
+    <input type="text" name="lot_number" class="form-control input" id="lot_number"
+    formControlName="lot_number" autocomplete="off" placeholder="lote Number">
+    @if(newProductForm.get('lot_number')?.hasError('required')&&newProductForm.get('lot_number')?.touched){
+        <div class="form-error">
+            <span class="text-danger">Lote Number is required*</span>
+        </div>
+    }
+</div>
+                
+<!------ End Of Product lot_number section --------------> 
+<!-- storage_location section ------------------------------>
+
+<div class="mb-3" style="width: 8em;">
+    <label for="storage_location" class="form-label">
+        <ng-icon name="bootstrapCardList" size="20px"/> &nbsp; 
+        Storage Loc:</label>
+    <input type="text" name="storage_location" class="form-control input" id="storage_location"
+    formControlName="storage_location" autocomplete="off" placeholder="Storage Location">
+    @if(newProductForm.get('storage_location')?.hasError('required')&&newProductForm.get('storage_location')?.touched){
+        <div class="form-error">
+            <span class="text-danger">Storage Location is required*</span>
+        </div>
+    }
+</div>
+                
+<!------ End Of Product storage_location section -------------->
+
+<!-- category section ------------------------------>
+
+<div class="mb-3" style="width: 9em;">
+    <label for="category" class="form-label">
+        <ng-icon name="bootstrapCardList" size="20px"/> &nbsp; 
+        category:
+    </label>
+
+    <select class="form-control form-select" formControlName="category" >
+        <option value="" >Choose a Category</option>
+        @for(category of itemsCategories; track category.id){
+          <option  [value]="category.name">{{ category.name }}</option>
+        }
+      </select>
+      @if(newProductForm.get('category')?.hasError('required') && newProductForm.get('category')?.touched){
+        <div class="form-error">
+          <span class="text-danger">Category is required*</span>
+        </div>
+      }
+</div>
+                
+<!------ End Of Product category section -------------->
+<!-- created_at section ------------------------------>
+
+<!--<div class="mb-3" style="width: 10em;">
+    <label for="created_at" class="form-label">
+        <ng-icon name="bootstrapCalendarDateFill" size="20px"/> &nbsp; 
+        Created at:</label>
+    <input type="date" name="created_at" class="form-control input" id="created_at"
+    formControlName="created_at" autocomplete="off" placeholder="Created at">
+    @if(newProductForm.get('created_at')?.hasError('required')&&newProductForm.get('created_at')?.touched){
+        <div class="form-error">
+            <span class="text-danger">Created at date is required*</span>
+        </div>
+    }
+</div>-->
+                
+<!------ End Of Product created_at section --------------> 
+
+<!--</div>-->
+
+
+ <!-- Fourth Group of data: expiration_date - lot_number - storage_location - Category, created_at End of the Block -------------------------------------------->
+
+<!--  nutritional_information , notes ---------------------------->
+
+<div style="display: flex; flex-direction: row;   
+                  justify-content:space-between; flex-wrap: wrap;">
+
+<!-- nutritional_information section ------------------------------>
+
+<div class="mb-3" style="width: 50%;">
+    <label for="nutritional_information" class="form-label">
+        <ng-icon name="bootstrapCardList" size="20px"/> &nbsp; 
+        Nutritional information:</label>
+    <input type="text" name="nutritional_information" class="form-control input" id="nutritional_information"
+    formControlName="nutritional_information" autocomplete="off" placeholder="Nutritional information">
+    @if(newProductForm.get('nutritional_information')?.hasError('required')&&newProductForm.get('nutritional_information')?.touched){
+        <div class="form-error">
+            <span class="text-danger">Nutritional information is required*</span>
+        </div>
+    }
+</div>
+                
+<!------ End Of Product nutritional_information section -------------->
+<!-- notes section ------------------------------>
+
+<div class="mb-3" style="width: 49%;">
+    <label for="notes" class="form-label">
+        <ng-icon name="bootstrapCardList" size="20px"/> &nbsp; 
+        Notes:</label>
+    <input type="text" name="notes" class="form-control input" id="notes"
+    formControlName="notes" autocomplete="off" placeholder="Notes information">
+    @if(newProductForm.get('notes')?.hasError('required')&&newProductForm.get('notes')?.touched){
+        <div class="form-error">
+            <span class="text-danger">Notes information is required*</span>
+        </div>
+    }
+</div>
+                
+<!------ End Of Product notes section -------------->
+
+</div>
+
+<!-- Fourth nutritional_information , notes block end ----------------->
+<!-- Fiveth Group of data: updated_at --------------------------------->
+
+<!-- updated_at  ---------------------------->
+
+<!--<div style="display: flex; flex-direction: row;   
+                  justify-content:space-between; flex-wrap: wrap;">
+  
+  <div class="mb-3" style="width: 10em;">
+    <label for="updated_at" class="form-label">
+        <ng-icon name="bootstrapCalendarDateFill" size="20px"/> &nbsp; 
+        Updated at:</label>
+    <input type="date" name="updated_at" class="form-control input" id="updated_at"
+    formControlName="updated_at" autocomplete="off" placeholder="Updated at">
+    @if(newProductForm.get('updated_at')?.hasError('required')&&newProductForm.get('updated_at')?.touched){
+        <div class="form-error">
+            <span class="text-danger">Created at date is required*</span>
+        </div>
+    }
+</div>-->
+                
+<!------ End Of Product updated_at section -------------->
+
+</div>
+
+<!-- updated_at End Block -------------------------------------------->
+ <!-- Fiveth Group of data: updated_at end block --------------------->
+
+    <div class="text-center">
+       <button type="submit" class="btn btn-primary w-100 mt-3 btnLogin" id="btnLogin"> Create Product</button>
+    </div>
+
+     <br/>
+     <br/>
+     <br/>
+         </form>
+        </div>
+       </div>
+      </div>
+    </div>
+</div>

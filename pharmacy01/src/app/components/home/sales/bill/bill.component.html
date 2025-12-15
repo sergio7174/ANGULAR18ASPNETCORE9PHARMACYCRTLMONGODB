@@ -1,0 +1,219 @@
+<div class="container" style="margin-left: -0.5em; ">
+
+    <div class="window rounded-3" style="max-height: 72em; width: 26em ;margin-top: 1.8em;display: flex; flex-direction: row; justify-content: center; overflow: scroll;">
+         
+      <div class="rounded-3 window" style="height: 65em; margin: 1em; width: 26em !important ;">
+
+       <div class="logo text-center">
+         <div class="row nav_logo_texts">
+            <div class="col-12">
+              <span class="nav_logo-name" style="position: relative; top: 15px; color: #2b69dd;" id="pharmacyControl">Pharmacy Control</span>    
+            </div>
+             <div class="col-12" style="margin-top: -1em;">
+              <img src="assets/logo/pharmacylogo04sb.png" width="150em" alt="logo">
+                <span class="nav_logo-name"  style="color: #2b69dd;">
+                    Sees
+                </span>
+                        <span class="nav_logo-name"  style="color: #0b0a4b; font-size: 1rem; position: relative; top: -5px; left: 5px;">App</span>
+                    </div>
+
+                </div>
+               </div>
+
+
+                <div class="formsupplier">
+                   <div style="display: flex; flex-direction: row; justify-content: center;">
+                    <div style="margin-right: 1em; margin-top: -1em;"> 
+                        <img src="assets/categoryCreate/Category05.png" width="60em" alt="Bill"/>
+                    </div>
+                    <div>
+                      <h2 class="text-center nav_logo-name" style="padding-top: -1em; color: #2b69dd;">Create  Bill </h2>
+                    </div>
+                </div>
+                    <br/>
+
+                        <form [formGroup]="salesForm" autocomplete="off">
+                         
+                        <div class="mb-3">
+                            <label for="name" class="form-label">
+                                <ng-icon name="bootstrapPersonCircle" size="32px"/> &nbsp; 
+                                Client Name:</label>
+                            <input type="name" name="name" class="form-control input" id="name"
+                            formControlName="name" autocomplete="off" placeholder="Please, Enter supplier Name">
+                            @if (
+                                salesForm.get("name")?.invalid &&
+                                (salesForm.get("name")?.dirty ||
+                                salesForm.get("name")?.touched)
+                                ) {
+                            @if(salesForm.get('name')?.hasError('required')){
+                              <div class="form-error">
+                               <span class="text-danger">Client Name is required*</span>
+                              </div>
+                                 } 
+                             @if(salesForm.get('name')?.hasError('minlength'))
+                                {
+                            <div class="form-error">
+                             <span class="text-danger">Value must be greater than 4 Char*</span>
+                             </div>
+                             }}
+                        </div> 
+
+  <!------ client CI Section ------------------------->
+    <div class="mb-3">
+      <label for="client_CI" class="form-label">
+          <ng-icon name="bootstrapPersonCircle" size="32px"/> &nbsp; 
+                Client CI:</label>
+            <input type="text" name="client_CI" class="form-control input" id="client_CI"
+            formControlName="client_CI" autocomplete="off" placeholder="Please, Client CI">
+            @if (
+                salesForm.get("client_CI")?.invalid &&
+                (salesForm.get("client_CI")?.dirty ||
+                salesForm.get("client_CI")?.touched)
+                ) {
+                            @if(salesForm.get('client_CI')?.hasError('required')){
+                                <div class="form-error">
+                                    <span class="text-danger">Client CI is required*</span>
+                                </div>
+                            } 
+                            @if(salesForm.get('client_CI')?.hasError('minlength'))
+                            {
+                                <div class="form-error">
+                                    <span class="text-danger">Value must be greater than 4 Char*</span>
+                                </div>
+                                
+                              }}
+        </div>
+                        
+  <!------ End Of client_CI SEction ------------------>
+  <!------ Client phone Section ------------------------->
+         <div class="mb-3">
+            <label for="phone" class="form-label">
+                <ng-icon name="bootstrapTelephoneForwardFill" size="32px"/> &nbsp; 
+                Client Phone:</label>
+            <input type="phone" name="phone" class="form-control input" id="phone"
+            formControlName="phone" autocomplete="off" placeholder="Please, Enter supplier Phone Number">
+            @if (
+                salesForm.get("phone")?.invalid &&
+                (salesForm.get("phone")?.dirty ||
+                salesForm.get("phone")?.touched)
+                ) {
+                            @if(salesForm.get('phone')?.hasError('required')){
+                                <div class="form-error">
+                                    <span class="text-danger">Client phone is required*</span>
+                                </div>
+                            } 
+                            @if(salesForm.get('phone')?.hasError('minlength'))
+                            {
+                                <div class="form-error">
+                                    <span class="text-danger">Value must be greater than 4 Char*</span>
+                                </div>
+                                
+                              }}
+        </div>
+                        
+        <!------ End Of supplier phone SEction ------------------>
+
+
+                   
+<!------------------------ cart section -------------------------->
+
+<div>
+    <header class="header">
+      <strong>Cart </strong>({{
+        count() === 1 ? count() + " item" : count() + " items"
+      }})
+    </header>
+    @if (count()) {
+    <main class="main">
+      <div class="items shadow">
+        <div class="title">
+          <strong>{{
+            count() === 1 ? count() + " item" : count() + " items"
+          }}</strong>
+        </div>
+
+        <div class="arrival"> <!-- Table head Section ---------->
+          <table class="table table-secondary table-bordered  table-hover text-center table-responsive-sm mt-1 " style="max-width: 25em;"  >
+                <thead class="table-dark border-light">
+                    <tr style="font-size: small;">
+                        <th scope="col" style="max-width: 13em;">Product Name</th>
+                        <th scope="col" style="max-width: 4em;">Price</th>
+                        <th scope="col" style="max-width: 8em;">Action</th>
+                       
+                    </tr>
+                </thead>
+               </table> 
+        </div> <!-- End of table Head Section---------------------->
+
+        <div class="content">
+          @for (item of items(); track item.id) {
+          <app-bill-item-card
+            [item]="item"
+            (itemQuantityUpdate)="onItemQuantityUpdate($event, item.id)"
+            (removeItem)="onRemoveItem(item.id)"
+          ></app-bill-item-card>
+          }
+        </div>
+      </div>
+      <aside class="total shadow">
+        <!--<button class="checkout" (click)="onCheckout()">
+          <strong>Continue to Checkout</strong>
+        </button> -->
+        <!--- SubTotal block -->
+        <div class="subtotal value-pair" style="margin-top: 2em; display: flex; flex-direction: row; justify-content:space-around;">
+          
+          <div>
+            <strong>Subtotal</strong>({{
+              count() === 1 ? count() + " item" : count() + " items"
+            }}) 
+         </div>
+
+          <div>${{ total() }}</div>
+        
+        </div> <!--- SubTotal block End -->
+        <!-- Taxes Block-->
+        <div class="taxes value-pair" style="margin-top: 2em; display: flex; flex-direction: row; justify-content:space-around;">
+          <div><strong>Taxes</strong></div>
+          <div>Calculated at checkout</div>
+        </div> <!-- End of Taxes Block-->
+        <!-- Total Block-->
+        <div class="estimated-total value-pair" style="margin-top: 2em; display: flex; flex-direction: row; justify-content:space-around;">
+          <div><strong>Estimated Total</strong></div>
+          <div class="estimated-total-value">
+            <strong>${{ total() }}</strong>
+          </div>
+        </div> <!-- End of Total Block-->
+
+      </aside>
+    </main>
+    } @else {
+    <div class="cart-empty">Cart is Empty!</div>
+    }
+  </div>
+
+
+
+
+
+<!-------------------------- cart section end block -------------->
+<!---  button create bill section -------------------------------------->
+@if (count()) {
+        <div class="text-center">
+            <button class="btn btn-primary w-100 mt-3 btnLogi" 
+               (click)  ="onCreateBill(count,items)" [disabled]="salesForm.invalid">
+               <strong>Create Bill</strong>
+            </button>
+        </div>
+      }
+
+
+                        <br/>
+                        <br/>
+                        <br/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    

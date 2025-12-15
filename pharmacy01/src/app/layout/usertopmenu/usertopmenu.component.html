@@ -1,0 +1,62 @@
+
+@if (isAuthenticated && IsAdmin=='false') {
+  <div style="display: flex ; flex-direction: row ; justify-content: center; background: rgb(179, 182, 182) !important;"> 
+  <!--- Begining of the NavBar Block  -->
+  <nav class="navbar navbar-expand-sm " style="background:  rgb(179, 182, 182) !important;">
+   <div class="container-fluid" >
+     <a class="navbar-brand" routerLink="/home" routerLinkActive="active" id="NavBrandHome"  style="width: 8em; color: black; font-weight: 400;">Home</a>           
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="mynavbar">
+   
+       <ul class="menuItems navbar-nav me-auto">
+  
+    <!--- OPtion Sales -------------------------------------------->
+        <li class="nav-item" style="width: 10em;margin-top: 0.4em;">
+            <a class="nav_link hover-underline" routerLink="/Sales" routerLinkActive="active" 
+            [ngClass]="{'active': currentRoute === 'Sales'}">
+            <ng-icon name="bootstrapCalculator" size="17px" />
+            &nbsp;
+
+            <span class="nav_name">Sales</span>
+        </a>
+
+         </li>
+         <!--- OPtion Inventory ----------------------------------------->
+         <li class="nav-item" style="width: 12em; margin-top: 0.4em;">
+            <a class="nav_link hover-underline" type="button" (click)="loadProducts()"
+              [ngClass]="{'active': currentRoute === 'inventory'}">
+               <ng-icon name="bootstrapListColumns" size="17px" />
+                        &nbsp;
+             Inventory
+            </a>
+         </li>
+      <!--- OPtion purchases ----------------------------------------->
+    <li class="nav-item" style="width: 12em; margin-top: 0.4em;">
+      <a href="#" class="nav_link hover-underline" routerLink="purchases" routerLinkActive="active"
+        [ngClass]="{'active': currentRoute === 'purchases'}">
+        <ng-icon name="bootstrapArrowDownLeftSquare" size="17px" />
+        &nbsp;
+        <span class="nav_name">Purchases</span>
+     </a>
+    </li>
+
+      <!--- OPtion Reports ----------------------------------------->
+    <li class="nav-item" style="width: 12em; margin-top: 0.4em;">
+      <a href="#" class="nav_link hover-underline" routerLink="reports" routerLinkActive="active"
+        [ngClass]="{'active': currentRoute === 'reports'}">
+        <ng-icon name="bootstrapLayoutTextWindowReverse" size="17px" />
+        &nbsp;
+        <span class="nav_name">Reports</span>
+     </a>
+    </li>
+
+
+
+       </ul>
+  
+     </div>
+   </div>
+  </nav> 
+  </div>}

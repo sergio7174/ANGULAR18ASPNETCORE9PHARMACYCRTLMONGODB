@@ -1,0 +1,23 @@
+<div style="display: flex; flex-direction: row; justify-content: baseline;">  
+
+   
+      <div class="name" style="width: 15em;">
+        {{ item()?.name }} &nbsp;
+      </div>
+      <div class="price" style="width: 4em;">
+        <strong>${{ item()?.price }}</strong>&nbsp;&nbsp;
+      </div>
+
+      <div style="display: flex; flex-direction: row; justify-content: center;">
+        <div>  
+         <span class="remove" (click)="onRemoveItem()"></span>
+        </div>
+        <div style="margin-top: -0.4em;">
+          <app-quantity-stepper
+              [quantity]="item()?.quantity"
+              (quantityChange)="onQuantityChange($event)">    
+          </app-quantity-stepper>
+        </div>
+    
+      </div>
+

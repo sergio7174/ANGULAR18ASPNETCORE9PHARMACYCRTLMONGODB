@@ -1,0 +1,204 @@
+import { Component, inject, DestroyRef , computed} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { bootstrapPersonCircle } from '@ng-icons/bootstrap-icons';
+import { bootstrapHouseAddFill } from '@ng-icons/bootstrap-icons';
+import { bootstrapTelephoneForwardFill } from '@ng-icons/bootstrap-icons';
+import { ToastrService } from 'ngx-toastr';
+import { InputTextModule } from 'primeng/inputtext';
+import { CartService } from '../../../../core/services/cart/cart.service';
+import { Sales } from '../../../../core/interfaces/sales';
+import { SalesService } from '../../../../core/services/sales/sales.service';
+
+import { BillItemCardComponent } from '../bill-item-card/bill-item-card.component';
+import { QuantityStepperComponent } from '../quantity-stepper/quantity-stepper.component';
+
+
+@Component({
+  selector: 'app-bill',
+  standalone: true,
+  imports: [ ReactiveFormsModule,
+             CardModule,
+             InputTextModule,
+             ButtonModule,
+             NgIcon,
+            BillItemCardComponent,
+            QuantityStepperComponent],
+providers: [provideIcons({ bootstrapPersonCircle, bootstrapHouseAddFill, bootstrapTelephoneForwardFill }),ToastrService],
+  templateUrl: './bill.component.html',
+  styleUrl: './bill.component.css'
+})
+export class BillComponent {
+
+// Declare the following property to inject the DestroyRef service:
+private readonly destroyRef = inject(DestroyRef);
+
+  /** Getting all this vars from signal object cart in cartService */
+  count = computed(() => this.cartService.cart().count);
+  total = computed(() => this.cartService.cart().total);
+  items = computed(() => this.cartService.cart().items);
+
+// var to handle messages from backend about the supplier process
+mensajeBackend:any=[];
+datasale:any=[];
+newsale:any=[];
+
+
+// inject services dependecies 
+private readonly saleService = inject(SalesService);
+private readonly router = inject(Router);
+private readonly toast = inject (ToastrService);
+private readonly cartService= inject(CartService);
+
+
+salesForm = new FormGroup(
+  {
+  name:  new FormControl('', [Validators.required, Validators.min(5)]),
+  client_CI:  new FormControl('', [Validators.required, Validators.min(5)]),
+  phone:  new FormControl('', [Validators.required, Validators.min(5)]),
+    
+  },
+);
+
+onCreateBill(count:any, items:any) {
+
+/************************ cart part **************************/
+
+alert("alert estoy en cart. component - line 100 - count: "+count);
+
+      // getting the numbers of items to getData
+      const itemsT = this.items().length;
+    
+      //alert("alert estoy en cart. component - line 104 - itemId: "+itemId);
+
+      // getting the elements names and amount to save in databse selling
+      let elementNames:any = [];
+
+      for (let index = 0; index <= itemsT ; index++) {
+        
+      
+        const elementid = items()[index].id;
+        const elementcount = items()[index].quantity;
+        
+        elementNames = items()[index].name+", "+" "+"Amount: "+elementcount+" "+elementNames;
+        
+        alert("id: "+elementid+" "+"index: "+index+" "+"count: "+" "+elementcount);
+        alert("Estoy en cart.component - line 115 - elementNames: "+elementNames);
+        
+        // function to update product amount in database
+        /*this.productService.putProductByIdDecA(elementid, items()[index]).pipe(
+          takeUntilDestroyed(this.destroyRef)).subscribe({
+          next: (response) => {
+     
+            this.DataProduct = response;
+            this.messageProduct = this.DataProduct.messageOk;
+
+            if (this.messageProduct){
+                       
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: this.messageProduct,
+              });
+
+             }
+
+          }})*/
+   // function to update product amount in database - Block end
+
+   // function to save data for sales in database
+      }
+
+
+
+/************************ End of cart part *******************/
+
+  /**** for testing purposes ************/
+  try{
+    if(this.salesForm.valid){
+      alert('Profile form is valid');
+    } else {
+      alert('Profile form invalid');
+    }
+  } catch(error){console.log('error: '+error)}
+
+ /**** End block for testing purposes */ 
+ /**** Check if the form is invalid ****/
+
+ if (this.salesForm.invalid) {
+  this.toast.error('Error','Please complete all required fields.');
+  return;
+}
+
+  const postData = { ...this.salesForm.value };
+  
+  this.saleService.createsale(postData as Sales).pipe(
+    takeUntilDestroyed(this.destroyRef)).subscribe({
+    next: (response) => {
+        
+        this.datasale = response;
+        this.mensajeBackend = this.datasale.message;
+        this.newsale = this.datasale.NewSale;
+
+        //alert("Estoy en supplier.component - line 92 - this.         mensajeBackend:  "+this.mensajeBackend);
+        //alert("Estoy en supplier.component - line 93 - this.newsale:  " +this.newsale);
+
+      if (!this.newsale) {     
+        if (this.mensajeBackend){
+          this.toast.error(this.mensajeBackend);
+        }}
+
+ if (this.newsale) {
+      this.toast.success('Create supply component - line 101 -Create supplier successfully');
+      //this.router.navigate(['login']);
+      //window.location.reload();
+      // reset form: reactiveFurnitureForm
+      this.salesForm.reset();
+
+      // go to /furnitureCreate page
+      this.router.navigate(['/createsupplier'],)
+      console.log(response);
+    }},
+    error: (err) => {
+      console.log(err);
+  
+      this.toast.error('Something went wrong');
+    },
+  });
+}
+
+get name() { return this.salesForm.controls['name']}
+get Client_CI() { return this.salesForm.controls['client_CI']}
+get phone() { return this.salesForm.controls['phone']}
+  
+/*** function to handle cart */
+onItemQuantityUpdate(quantity: number, id: string) {
+  let increase = true;
+  const item = this.items().find((t) => t.id === id);
+  if (quantity < item!.quantity) increase = false;
+  if (increase) {
+    this.cartService.increaseItem(item!);
+  } else {
+    this.cartService.decreaseItem(item!);
+  }
+}
+
+onRemoveItem(id: string) {
+  const item = this.items().find((t) => t.id === id);
+  this.cartService.removeItem(item!);
+}
+
+
+
+
+
+}

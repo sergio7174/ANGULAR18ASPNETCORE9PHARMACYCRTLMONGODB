@@ -1,0 +1,15 @@
+@if (loading ) {
+    <app-loading></app-loading>
+  }
+
+  @if(!loading && (hideSidebar || !isAuthenticated)) {  
+    <div class="app-container">
+      <app-login></app-login>
+    </div>
+  }
+
+  <body>
+   <app-front-page></app-front-page>
+</body>
+<br/>
+<br/>

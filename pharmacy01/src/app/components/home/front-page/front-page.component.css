@@ -1,0 +1,71 @@
+:root {
+    scroll-behavior: smooth;
+  }
+  
+  /*--------------------------------------------------------------
+  # General Styling & Shared Classes
+
+  /*--------------------------------------------------------------
+  # Preloader
+  --------------------------------------------------------------*/
+  #preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    overflow: hidden;
+    background: var(--background-color);
+    transition: all 0.6s ease-out;
+  }
+  
+  #preloader:before {
+    content: "";
+    position: fixed;
+    top: calc(50% - 30px);
+    left: calc(50% - 30px);
+    border: 6px solid #ffffff;
+    border-color: var(--accent-color) transparent var(--accent-color) transparent;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: animate-preloader 1.5s linear infinite;
+  }
+  
+  @keyframes animate-preloader {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  
+  /*--------------------------------------------------------------
+  # Hero Section
+  --------------------------------------------------------------*/
+  
+  .welcomeImage{
+    
+    @media (max-width: 760px) {
+   
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          position: relative;
+          top:-10em }
+          
+  }
+  
+
+   .welcome h2 {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 700;
+  }
+  
+   .welcome p {
+    font-size: 24px;
+    margin: 0;
+  }
+  
