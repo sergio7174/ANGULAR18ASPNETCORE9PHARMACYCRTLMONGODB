@@ -55,7 +55,7 @@ $ npm start (to start the server), or nodemon server
 ![Static Badge](https://img.shields.io/badge/cors%20-yellow?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/dotenv-black?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/MongoDb%20-aqua?style=for-the-badge)
-![Static Badge](https://img.shields.io/badge/Asp.Net:core 9-purple?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/Asp.Net.core9-purple?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/Express-navy?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/bootstrap-teal?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/rxjs%20-aqua?style=for-the-badge)
