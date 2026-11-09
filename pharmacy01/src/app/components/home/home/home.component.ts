@@ -7,6 +7,7 @@ import { AuthService } from '../../../core/services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginComponent } from "../../auth/login/login.component";
 import { FrontPageComponent } from '../front-page/front-page.component';
+import { SeoService } from '../../../services/seo.service';
 
 
 @Component({
@@ -32,12 +33,20 @@ export class HomeComponent {
   constructor(
               private router: Router,
               private authService: AuthService,
-              private toast: ToastrService) {
+              private toast: ToastrService,
+              private seo: SeoService) {
   
   }
 
   ngOnInit() {
     this.checkAuthentication();
+    // add seo
+    this.seo.generateTags({
+      title: 'Pharmacy Sees',
+      description: 'dynamic Pharmacy control, Medical equipment Supply, Medicines Selling,is a healthcare facility and retail store where licensed professionals prepare, dispense, and manage medications.',
+      image: 'https://yourdomain.com/assets/frontpage/pharmacy-image02.jpg',
+      url: 'https://yourdomain.com/'
+    });
   }
 
   checkAuthentication(): void {

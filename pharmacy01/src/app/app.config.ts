@@ -5,6 +5,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http'; // ***Add this 
 import { provideToastr } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideClientHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),     
@@ -14,5 +15,5 @@ export const appConfig: ApplicationConfig = {
               BrowserAnimationsModule,
               provideToastr({
                 positionClass: 'toast-bottom-right',
-              }),]
+              }), provideClientHydration(),]
 };
